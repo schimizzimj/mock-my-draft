@@ -10,6 +10,11 @@ export class DraftSummaryMapper {
         id: grade.id,
         year: grade.year,
         text: grade.text,
+        sentimentCompound: grade.sentimentCompound ?? null,
+        sentimentPositive: grade.sentimentPositive ?? null,
+        sentimentNegative: grade.sentimentNegative ?? null,
+        sentimentNeutral: grade.sentimentNeutral ?? null,
+        keywords: grade.keywords ?? null,
         sourceArticle: {
           id: grade.sourceArticle.id,
           title: grade.sourceArticle.title,

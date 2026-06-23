@@ -39,6 +39,21 @@ export class DraftClassGrade {
   @Column({ nullable: true })
   text?: string;
 
+  @Column({ type: 'float', nullable: true })
+  sentimentCompound?: number;
+
+  @Column({ type: 'float', nullable: true })
+  sentimentPositive?: number;
+
+  @Column({ type: 'float', nullable: true })
+  sentimentNegative?: number;
+
+  @Column({ type: 'float', nullable: true })
+  sentimentNeutral?: number;
+
+  @Column({ type: 'jsonb', nullable: true })
+  keywords?: Array<{ word: string; count: number }>;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -1,6 +1,12 @@
 import { SimpleGrid, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from '@chakra-ui/react';
 import Card from './card';
 import { GradeBadge } from './grade-badge';
+import { SentimentBadge } from './sentiment-badge';
+
+interface SentimentLeader {
+  team: { id: string; name: string };
+  sentiment: number;
+}
 
 interface HeroStatsProps {
   currentYear: number;
@@ -15,11 +21,16 @@ interface HeroStatsProps {
     leagueAverage: number;
     sourceAgreement: number;
   };
+  sentimentLeaders?: {
+    mostPositive: SentimentLeader | null;
+    mostCriticized: SentimentLeader | null;
+  };
 }
 
-export const HeroStats: React.FC<HeroStatsProps> = ({ stats, deltas }) => {
+export const HeroStats: React.FC<HeroStatsProps> = ({ stats, deltas, sentimentLeaders }) => {
+  const hasSentiment = sentimentLeaders?.mostPositive || sentimentLeaders?.mostCriticized;
   return (
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6} mb={12}>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: hasSentiment ? 6 : 4 }} spacing={6} mb={12}>
       <Card variant="hero">
         <Stat>
           <StatLabel>League Average</StatLabel>
@@ -59,6 +70,34 @@ export const HeroStats: React.FC<HeroStatsProps> = ({ stats, deltas }) => {
           <StatHelpText>Across all sources</StatHelpText>
         </Stat>
       </Card>
+
+      {sentimentLeaders?.mostPositive && (
+        <Card variant="hero">
+          <Stat>
+            <StatLabel>Most Positive Buzz</StatLabel>
+            <StatNumber fontSize="lg">
+              {sentimentLeaders.mostPositive.team.name}
+            </StatNumber>
+            <StatHelpText>
+              <SentimentBadge sentiment={sentimentLeaders.mostPositive.sentiment} />
+            </StatHelpText>
+          </Stat>
+        </Card>
+      )}
+
+      {sentimentLeaders?.mostCriticized && (
+        <Card variant="hero">
+          <Stat>
+            <StatLabel>Most Criticized</StatLabel>
+            <StatNumber fontSize="lg">
+              {sentimentLeaders.mostCriticized.team.name}
+            </StatNumber>
+            <StatHelpText>
+              <SentimentBadge sentiment={sentimentLeaders.mostCriticized.sentiment} />
+            </StatHelpText>
+          </Stat>
+        </Card>
+      )}
     </SimpleGrid>
   );
 };

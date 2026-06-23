@@ -111,3 +111,101 @@ export function buildDivisionComparisons(
     })
     .sort((a, b) => b.grade - a.grade);
 }
+
+// --- Sentiment utility functions ---
+
+interface SentimentGrade {
+  sentimentCompound?: number | null;
+}
+
+interface SentimentGradeWithSource extends SentimentGrade {
+  sourceArticle: { source: { name: string; slug: string } };
+}
+
+export function calculateTeamSentiment(grades: SentimentGrade[]): number | null {
+  const withSentiment = grades.filter(
+    (g) => g.sentimentCompound != null
+  );
+  if (withSentiment.length === 0) return null;
+
+  const sum = withSentiment.reduce((acc, g) => acc + g.sentimentCompound!, 0);
+  return sum / withSentiment.length;
+}
+
+export function findSentimentLeaders(
+  teams: Array<{ team: { id: string; name: string }; draftGrades: SentimentGrade[] }>
+): {
+  mostPositive: { team: { id: string; name: string }; sentiment: number } | null;
+  mostCriticized: { team: { id: string; name: string }; sentiment: number } | null;
+} {
+  const teamSentiments = teams
+    .map((t) => ({
+      team: t.team,
+      sentiment: calculateTeamSentiment(t.draftGrades),
+    }))
+    .filter((t): t is { team: { id: string; name: string }; sentiment: number } =>
+      t.sentiment !== null
+    );
+
+  if (teamSentiments.length === 0) {
+    return { mostPositive: null, mostCriticized: null };
+  }
+
+  const mostPositive = teamSentiments.reduce((best, curr) =>
+    curr.sentiment > best.sentiment ? curr : best
+  );
+  const mostCriticized = teamSentiments.reduce((worst, curr) =>
+    curr.sentiment < worst.sentiment ? curr : worst
+  );
+
+  return { mostPositive, mostCriticized };
+}
+
+export function aggregateKeywords(
+  grades: Array<{ keywords?: Array<{ word: string; count: number }> | null }>
+): Array<{ word: string; count: number }> {
+  const wordMap = new Map<string, number>();
+
+  for (const grade of grades) {
+    if (!grade.keywords) continue;
+    for (const kw of grade.keywords) {
+      wordMap.set(kw.word, (wordMap.get(kw.word) || 0) + kw.count);
+    }
+  }
+
+  return Array.from(wordMap.entries())
+    .map(([word, count]) => ({ word, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export function calculateSourceSentiments(
+  teams: Array<{
+    team: { id: string };
+    draftGrades: SentimentGradeWithSource[];
+  }>
+): Array<{ source: { name: string; slug: string }; avgSentiment: number; gradeCount: number }> {
+  const sourceMap = new Map<string, { name: string; slug: string; sentiments: number[] }>();
+
+  for (const team of teams) {
+    for (const grade of team.draftGrades) {
+      if (grade.sentimentCompound == null) continue;
+      const key = grade.sourceArticle.source.slug;
+      if (!sourceMap.has(key)) {
+        sourceMap.set(key, {
+          name: grade.sourceArticle.source.name,
+          slug: grade.sourceArticle.source.slug,
+          sentiments: [],
+        });
+      }
+      sourceMap.get(key)!.sentiments.push(grade.sentimentCompound);
+    }
+  }
+
+  return Array.from(sourceMap.values())
+    .map((s) => ({
+      source: { name: s.name, slug: s.slug },
+      avgSentiment: s.sentiments.reduce((a, b) => a + b, 0) / s.sentiments.length,
+      gradeCount: s.sentiments.length,
+    }))
+    .sort((a, b) => b.avgSentiment - a.avgSentiment);
+}

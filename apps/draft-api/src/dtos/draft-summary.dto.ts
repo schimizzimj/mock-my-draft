@@ -14,6 +14,11 @@ export class TeamDraftSummaryDto {
     readonly gradeNumeric: number;
     readonly year: number;
     readonly text: string;
+    readonly sentimentCompound?: number | null;
+    readonly sentimentPositive?: number | null;
+    readonly sentimentNegative?: number | null;
+    readonly sentimentNeutral?: number | null;
+    readonly keywords?: Array<{ word: string; count: number }> | null;
     readonly sourceArticle: {
       readonly id: string;
       readonly title: string;

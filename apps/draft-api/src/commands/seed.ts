@@ -6,8 +6,9 @@ import { seedDraftClassGrades } from './seed-steps/seed-draft-class-grades';
 import { seedPlayerGrades } from './seed-steps/seed-player-grades';
 import { seedPlayers } from './seed-steps/seed-players';
 import { seedTeams } from './seed-steps/seed-teams';
+import { seedTextAnalysis } from './seed-steps/seed-text-analysis';
 
-type StepName = 'teams' | 'players' | 'draft-classes' | 'grades' | 'player-grades';
+type StepName = 'teams' | 'players' | 'draft-classes' | 'grades' | 'player-grades' | 'text-analysis';
 
 export type SeedResult = {
   step: string;
@@ -16,7 +17,7 @@ export type SeedResult = {
   skipped: number;
 };
 
-const VALID_STEPS: StepName[] = ['teams', 'players', 'draft-classes', 'grades', 'player-grades'];
+const VALID_STEPS: StepName[] = ['teams', 'players', 'draft-classes', 'grades', 'player-grades', 'text-analysis'];
 
 function parseArgs(): { steps: StepName[] | null; year: number } {
   const args = process.argv.slice(2);
@@ -57,7 +58,7 @@ async function main() {
   console.log('Database connected (migrations applied).\n');
 
   const results: SeedResult[] = [];
-  const allSteps: StepName[] = ['teams', 'players', 'draft-classes', 'grades', 'player-grades'];
+  const allSteps: StepName[] = ['teams', 'players', 'draft-classes', 'grades', 'player-grades', 'text-analysis'];
   const stepsToRun = steps ?? allSteps;
 
   for (const step of stepsToRun) {
@@ -79,6 +80,9 @@ async function main() {
         break;
       case 'player-grades':
         result = await seedPlayerGrades(year);
+        break;
+      case 'text-analysis':
+        result = await seedTextAnalysis(year);
         break;
       default:
         console.log(`  Step "${step}" not yet implemented.\n`);

@@ -41,6 +41,11 @@ export interface DraftGrade {
   gradeNumeric: number;
   year: number;
   text: string;
+  sentimentCompound?: number | null;
+  sentimentPositive?: number | null;
+  sentimentNegative?: number | null;
+  sentimentNeutral?: number | null;
+  keywords?: Array<{ word: string; count: number }> | null;
   sourceArticle: {
     id: string;
     title: string;

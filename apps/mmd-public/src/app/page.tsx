@@ -47,9 +47,16 @@ import {
 import { GradeBadge } from '../components/grade-badge';
 import { HeroStats } from '../components/hero-stats';
 import { ChartSkeleton, HeroStatsSkeleton } from '../components/chart-skeleton';
-import { calculateLeagueStatistics, calculateYearOverYearDeltas } from '../lib/statistics';
+import {
+  calculateLeagueStatistics,
+  calculateYearOverYearDeltas,
+  findSentimentLeaders,
+  calculateSourceSentiments,
+  calculateTeamSentiment,
+} from '../lib/statistics';
 import { Sparkline } from '../components/sparkline';
 import { useAllYearsData, buildTeamHistoricalData } from '../lib/historical-data';
+import { SourceToneChart } from '../components/source-tone-chart';
 
 interface GradeRange {
   team: Team;
@@ -163,6 +170,31 @@ export default function Home() {
     return { stats, deltas };
   }, [draftSummary, previousYearSummary]);
 
+  const sentimentLeaders = useMemo(() => {
+    if (!draftSummary) return undefined;
+    return findSentimentLeaders(draftSummary.teams);
+  }, [draftSummary]);
+
+  const leagueSourceToneData = useMemo(() => {
+    if (!draftSummary) return [];
+    return calculateSourceSentiments(draftSummary.teams).map((s) => ({
+      source: s.source.name,
+      sentiment: s.avgSentiment,
+    }));
+  }, [draftSummary]);
+
+  const teamSentimentMap = useMemo(() => {
+    if (!draftSummary) return new Map<string, Array<{ year: number; sentiment: number }>>();
+    const map = new Map<string, Array<{ year: number; sentiment: number }>>();
+    for (const team of draftSummary.teams) {
+      const sentiment = calculateTeamSentiment(team.draftGrades);
+      if (sentiment != null) {
+        map.set(team.team.id, [{ year, sentiment }]);
+      }
+    }
+    return map;
+  }, [draftSummary, year]);
+
   if (!draftSummary && !isLoading) {
     return (
       <Container as="main" maxW="container.xl" minH="80vh">
@@ -204,6 +236,7 @@ export default function Home() {
           previousYear={year - 1}
           stats={heroStatsData.stats}
           deltas={heroStatsData.deltas}
+          sentimentLeaders={sentimentLeaders}
         />
       )}
       <Card mt={8} py={4}>
@@ -535,6 +568,14 @@ export default function Home() {
           </ResponsiveContainer>
         </Card>
       )}
+      {leagueSourceToneData.length > 0 && (
+        <Card py={4} mt={8}>
+          <SourceToneChart
+            data={leagueSourceToneData}
+            title="League-Wide Source Tone"
+          />
+        </Card>
+      )}
       {!isMobile ? (
         <Card py={4} mt={8}>
           <TableContainer>
@@ -578,6 +619,7 @@ export default function Home() {
                           <Sparkline
                             data={buildTeamHistoricalData(allYearsData, entry.team.id)}
                             color={getGradeColor(entry.averageGrade)}
+                            sentimentData={teamSentimentMap.get(entry.team.id)}
                           />
                         )}
                       </Td>
@@ -616,6 +658,7 @@ export default function Home() {
                         <Sparkline
                           data={buildTeamHistoricalData(allYearsData, entry.team.id)}
                           color={getGradeColor(entry.averageGrade)}
+                          sentimentData={teamSentimentMap.get(entry.team.id)}
                         />
                       </Box>
                     )}

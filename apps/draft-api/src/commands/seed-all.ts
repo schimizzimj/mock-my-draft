@@ -6,6 +6,7 @@ import { seedPlayers } from './seed-steps/seed-players';
 import { seedDraftClasses } from './seed-steps/seed-draft-classes';
 import { seedDraftClassGrades } from './seed-steps/seed-draft-class-grades';
 import { seedPlayerGrades } from './seed-steps/seed-player-grades';
+import { seedTextAnalysis } from './seed-steps/seed-text-analysis';
 import { SeedResult } from './seed';
 
 const YEARS = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
@@ -48,6 +49,11 @@ async function main() {
     const playerGradesResult = await seedPlayerGrades(year);
     results.push(playerGradesResult);
     console.log(`  Done: ${playerGradesResult.success} created, ${playerGradesResult.skipped} skipped`);
+
+    console.log(`--- Seeding text analysis (${year}) ---`);
+    const textAnalysisResult = await seedTextAnalysis(year);
+    results.push(textAnalysisResult);
+    console.log(`  Done: ${textAnalysisResult.success} analyzed, ${textAnalysisResult.skipped} skipped`);
   }
 
   // Summary
