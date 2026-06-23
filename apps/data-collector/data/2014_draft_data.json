@@ -1747,8 +1747,8 @@
     "playerDetails": {
       "height": 71,
       "weight": 248,
-      "armLength": "29 1⁄4",
-      "handSize": "9 7⁄8",
+      "armLength": 29.25,
+      "handSize": 9.875,
       "fortyYardDash": 4.83,
       "tenYardSplit": 1.65,
       "twentyYardSplit": 2.7,
@@ -2222,8 +2222,8 @@
     "playerDetails": {
       "height": 76,
       "weight": 257,
-      "armLength": "32+5⁄8",
-      "handSize": "10+1⁄8",
+      "armLength": 32.625,
+      "handSize": 10.125,
       "fortyYardDash": 4.87,
       "tenYardSplit": 1.69,
       "twentyYardSplit": 2.82,
@@ -2749,8 +2749,8 @@
     "playerDetails": {
       "height": 73,
       "weight": 250,
-      "armLength": "30+1⁄4",
-      "handSize": "9+1⁄2",
+      "armLength": 30.25,
+      "handSize": 9.5,
       "fortyYardDash": 4.76,
       "tenYardSplit": 1.66,
       "twentyYardSplit": 2.78,
@@ -2774,7 +2774,7 @@
     "playerDetails": {
       "height": 71,
       "weight": 196,
-      "armLength": "313⁄8",
+      "armLength": 31.375,
       "handSize": 9,
       "fortyYardDash": 4.49,
       "tenYardSplit": 1.54,
@@ -3466,8 +3466,8 @@
     "playerDetails": {
       "height": 71,
       "weight": 234,
-      "armLength": "317⁄8",
-      "handSize": "91⁄4",
+      "armLength": 31.875,
+      "handSize": 9.25,
       "fortyYardDash": 4.66,
       "tenYardSplit": 1.61,
       "twentyYardSplit": 2.66,
@@ -4322,7 +4322,7 @@
     "pick": 198,
     "team": "New England Patriots",
     "position": "DE",
-    "college": "Concordia–St. Paul",
+    "college": "Concordia\u2013St. Paul",
     "playerDetails": {
       "height": 78,
       "weight": 275,

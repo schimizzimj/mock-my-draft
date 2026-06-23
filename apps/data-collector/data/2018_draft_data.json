@@ -3017,8 +3017,8 @@
     "playerDetails": {
       "height": 76,
       "weight": 220,
-      "armLength": "32+7⁄8",
-      "handSize": "9+3⁄8",
+      "armLength": 32.875,
+      "handSize": 9.375,
       "fortyYardDash": 4.4,
       "tenYardSplit": 1.64,
       "twentyYardSplit": 2.72,
@@ -5524,13 +5524,13 @@
     "playerDetails": {
       "height": 75,
       "weight": 321,
-      "armLength": "N/A",
-      "handSize": "N/A",
+      "armLength": null,
+      "handSize": null,
       "fortyYardDash": 5.24,
       "tenYardSplit": 1.78,
       "twentyYardSplit": 3.03,
       "verticalJump": 30.375,
-      "broadJump": "N/A",
+      "broadJump": null,
       "wonderlic": "N/A",
       "born": "1994-10-26",
       "hometown": "Jackson, Mississippi"

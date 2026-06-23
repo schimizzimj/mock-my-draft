@@ -288,13 +288,36 @@ async function collectPlayerDetails(url) {
     } else if (value.includes('s')) {
       measurables[key] = parseTime(value);
     } else {
-      measurables[key] = value;
+      measurables[key] = parseUnicodeFraction(value) ?? value;
     }
   });
 
   playerDetails = { ...measurables, ...playerDetails };
 
   return playerDetails;
+}
+
+/**
+ * Parse a value containing a Unicode fraction slash (U+2044) like "303⁄8" or "32+1⁄4".
+ * Returns a decimal number, or null if the value doesn't contain a Unicode fraction.
+ */
+function parseUnicodeFraction(value) {
+  const FRACTION_SLASH = '\u2044';
+  if (!value.includes(FRACTION_SLASH)) return null;
+
+  const [left, denomStr] = value.split(FRACTION_SLASH);
+  const denom = parseInt(denomStr);
+  if (isNaN(denom)) return null;
+
+  if (left.includes('+')) {
+    const [wholeStr, numerStr] = left.split('+');
+    return parseInt(wholeStr) + parseInt(numerStr) / denom;
+  }
+
+  // Concatenated form e.g. "303⁄8" → whole=30, numer=3
+  const numer = parseInt(left.slice(-1));
+  const whole = left.length > 1 ? parseInt(left.slice(0, -1)) : 0;
+  return whole + numer / denom;
 }
 
 /**

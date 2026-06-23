@@ -957,14 +957,14 @@
     "playerDetails": {
       "height": 75,
       "weight": 250,
-      "armLength": "33+1⁄4",
+      "armLength": 33.25,
       "handSize": 9.875,
       "fortyYardDash": 4.65,
       "tenYardSplit": 1.65,
       "twentyYardSplit": 2.69,
       "twentyYardShuttle": 4.53,
       "threeConeDrill": 7.26,
-      "verticalJump": "36+1⁄2",
+      "verticalJump": 36.5,
       "broadJump": 118,
       "benchPress": 25,
       "born": "1987-09-20",
@@ -1250,8 +1250,8 @@
     "playerDetails": {
       "height": 75,
       "weight": 262,
-      "armLength": "33+1⁄2",
-      "handSize": "10+1⁄4",
+      "armLength": 33.5,
+      "handSize": 10.25,
       "fortyYardDash": 4.95,
       "tenYardSplit": 1.7,
       "twentyYardSplit": 2.84,
@@ -1324,7 +1324,7 @@
       "height": 72,
       "weight": 225,
       "armLength": 31.125,
-      "handSize": "9+1⁄2",
+      "handSize": 9.5,
       "fortyYardDash": 4.49,
       "twentyYardShuttle": 4.14,
       "threeConeDrill": 6.87,
@@ -1743,8 +1743,8 @@
     "playerDetails": {
       "height": 75,
       "weight": 310,
-      "armLength": "33+3⁄8",
-      "handSize": "9+1⁄4",
+      "armLength": 33.375,
+      "handSize": 9.25,
       "fortyYardDash": 5.24,
       "twentyYardShuttle": 4.69,
       "broadJump": 101,
@@ -3044,7 +3044,7 @@
     "pick": 149,
     "team": "St. Louis Rams",
     "position": "DE",
-    "college": "Louisiana–Lafayette",
+    "college": "Louisiana\u2013Lafayette",
     "playerDetails": {
       "height": 78,
       "weight": 262,
@@ -3072,7 +3072,7 @@
       "handSize": 9.875,
       "benchPress": 16,
       "born": "1986-03-06",
-      "hometown": "Timișoara"
+      "hometown": "Timi\u0219oara"
     },
     "player": "Zoltan Mesko"
   },

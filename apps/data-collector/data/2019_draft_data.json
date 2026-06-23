@@ -4570,7 +4570,7 @@
     "pick": 203,
     "team": "Atlanta Falcons",
     "position": "WR",
-    "college": "Louisiana–Monroe",
+    "college": "Louisiana\u2013Monroe",
     "playerDetails": {
       "born": "1996-08-13",
       "hometown": "New Albany, Mississippi",
@@ -5313,14 +5313,14 @@
     "playerDetails": {
       "height": 73,
       "weight": 190,
-      "armLength": "311⁄2",
+      "armLength": 31.5,
       "handSize": 9,
       "fortyYardDash": 4.46,
       "tenYardSplit": 1.55,
       "twentyYardSplit": 2.61,
       "twentyYardShuttle": 4.29,
       "threeConeDrill": 6.93,
-      "verticalJump": "361⁄2",
+      "verticalJump": 36.5,
       "broadJump": 122,
       "benchPress": 12,
       "born": "1997-05-16",
@@ -5531,7 +5531,7 @@
       "broadJump": 110,
       "benchPress": 34,
       "born": "1996-05-05",
-      "hometown": "Parsippany–Troy Hills, New Jersey"
+      "hometown": "Parsippany\u2013Troy Hills, New Jersey"
     },
     "player": "Michael Dogbe"
   },

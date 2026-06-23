@@ -2743,7 +2743,7 @@
     "pick": 117,
     "team": "New England Patriots",
     "playerDetails": {},
-    "player": "Selection from New Orleans R4 - 8] forfeited d.[Forfeited/Penalized 1]"
+    "player": "Selection from New Orleans\u00a0R4 - 8] forfeited d.[Forfeited/Penalized 1]"
   },
   {
     "round": 4,
@@ -4286,8 +4286,8 @@
     "playerDetails": {
       "height": 73,
       "weight": 210,
-      "armLength": "313⁄4",
-      "handSize": "91⁄4",
+      "armLength": 31.75,
+      "handSize": 9.25,
       "fortyYardDash": 4.56,
       "verticalJump": 33.125,
       "broadJump": 118,
@@ -4302,7 +4302,7 @@
     "pick": 188,
     "team": "New York Jets",
     "position": "RB",
-    "college": "Louisiana–Lafayette",
+    "college": "Louisiana\u2013Lafayette",
     "playerDetails": {
       "height": 70,
       "weight": 214,
@@ -5365,7 +5365,7 @@
       "twentyYardSplit": 2.6,
       "twentyYardShuttle": 4.53,
       "threeConeDrill": 7.43,
-      "verticalJump": "40+1⁄2",
+      "verticalJump": 40.5,
       "broadJump": 129,
       "benchPress": 22,
       "wonderlic": "18[7]",
